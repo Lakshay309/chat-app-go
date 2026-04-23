@@ -16,8 +16,8 @@ import (
 // [*] Upgrade it to WS once client connects
 // [*] Add newly connected ws to server
 // [*] Add ws client
-// [] Remove client on disconnect
-// [] send brodcast msg -> no race condition
+// [*] Remove client on disconnect
+// [*] send brodcast msg -> no race condition
 
 var (
 	wsPort = ":3223"
@@ -188,11 +188,6 @@ func (s *Server) brodcast(msg *ReqMsg) {
 	s.mu.RUnlock()
 	resp := NewRespMsg(msg)
 	for _, c := range cls {
-		// err := c.conn.WriteJSON(resp)
-		// if err != nil {
-		// 	fmt.Printf("Error sending msg to ClientID:%v\n", c.ID)
-		// 	continue
-		// }
 		c.msgCH<-resp
 	}
 	fmt.Println("Broadcast was sent")

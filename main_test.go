@@ -83,7 +83,6 @@ func NewTestClient(conn *websocket.Conn, ctx context.Context) *TestClient {
 	return &TestClient{
 		conn:  conn,
 		msgCH: make(chan *ReqMsg, 64),
-		// done:  make(chan struct{}),
 		ctx:   ctx,
 	}
 }
